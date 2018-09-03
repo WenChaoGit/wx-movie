@@ -1,0 +1,17 @@
+{
+  "name": "scoot-wx",
+  "version": "1.0.0",
+  "description": "wechat immoc",
+  "main": "check.js",
+  "scripts": {
+    "test": "echo \"Er/sunny clientidror: no test specified\" && exit 1",
+    "ngrok":"./bin/ngrok.sh ",
+    "start":"node check.js"
+  },
+  "author": "wenchao",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.2",
+    "sha1": "^1.1.1"
+  }
+}
