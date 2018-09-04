@@ -1,6 +1,7 @@
 const sha1 = require('sha1')
-
-module.exports = config => {
+const getRawBody = require('raw-body')
+const util = require('../util/util')
+module.exports = (config,reply) => {
   return async (ctx, next) => {
     const {
       signature,
@@ -21,7 +22,28 @@ module.exports = config => {
       if (sha !== signature) {
         return (ctx.body = 'Failed ')
       }
+      const data = await getRawBody(ctx.req,{
+        lenght:ctx.lenght,
+        limit:'1mb',
+        encoding:ctx.charset
+      })
+      const content = await util.parseXML(data)
+      const message= util.formatMessage(content.xml)
+      ctx.wexin = message
+      let time = new Date().getTime()/1000
+      ctx.status =200
+      ctx.type='application/xml'
+      await reply.apply(ctx,[ctx,next])
+      const xml  = `<xml>
+      <ToUserName><![CDATA[${message.FromUserName}]]></ToUserName>
+      <FromUserName><![CDATA[${message.ToUserName}]]></FromUserName>
+      <CreateTime>${time}</CreateTime>
+      <MsgType><![CDATA[text]]></MsgType>
+      <Content><![CDATA[${message.Content}]]></Content>
+      </xml>`
+      ctx.body = xml
     }
+
   
   }
 }

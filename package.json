@@ -5,13 +5,16 @@
   "main": "check.js",
   "scripts": {
     "test": "echo \"Er/sunny clientidror: no test specified\" && exit 1",
-    "ngrok":"./bin/ngrok.sh ",
-    "start":"node check.js"
+    "ngrok": "./bin/ngrok.sh ",
+    "start": "node check.js"
   },
   "author": "wenchao",
   "license": "ISC",
   "dependencies": {
     "koa": "^2.5.2",
-    "sha1": "^1.1.1"
+    "lodash": "^4.17.10",
+    "raw-body": "^2.3.3",
+    "sha1": "^1.1.1",
+    "xml2js": "^0.4.19"
   }
 }
