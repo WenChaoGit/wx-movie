@@ -1,5 +1,7 @@
 const xml2js = require('xml2js')
 const _ = require('lodash')
+const template = require('../wechat-lib/tpl')
+
 exports.parseXML = xml => {
   return new Promise( (resolve,reject)=>{
     xml2js.parseString(xml,{trim:true}, (err,content)=>{
@@ -46,3 +48,22 @@ exports.formatMessage = result => {
   }
   return message
 }
+
+
+exports.tpl = (content,msg)=>{
+  let type = 'text'
+  if(Array.isArray(content)) type ='news'
+  if(!content) type='Empty news'
+  if(content && content.type){
+    type = content.type
+  }
+  let info = Object.assign({},{
+    content,
+    msgType:type,
+    createTime:new Date().getTime()/1000,
+    toUserName:msg.FromUserName,
+    fromUserName:msg.ToUserName
+  })
+  return template(info)
+}
+

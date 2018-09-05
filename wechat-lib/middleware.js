@@ -34,13 +34,8 @@ module.exports = (config,reply) => {
       ctx.status =200
       ctx.type='application/xml'
       await reply.apply(ctx,[ctx,next])
-      const xml  = `<xml>
-      <ToUserName><![CDATA[${message.FromUserName}]]></ToUserName>
-      <FromUserName><![CDATA[${message.ToUserName}]]></FromUserName>
-      <CreateTime>${time}</CreateTime>
-      <MsgType><![CDATA[text]]></MsgType>
-      <Content><![CDATA[${message.Content}]]></Content>
-      </xml>`
+      const replyBody = ctx.body
+      const xml = util.tpl(replyBody,message);
       ctx.body = xml
     }
 

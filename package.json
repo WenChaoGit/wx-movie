@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Er/sunny clientidror: no test specified\" && exit 1",
     "ngrok": "./bin/ngrok.sh ",
-    "start": "node check.js"
+    "start": "node ./app.js"
   },
   "author": "wenchao",
   "license": "ISC",
